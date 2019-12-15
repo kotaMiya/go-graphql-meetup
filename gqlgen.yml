@@ -12,8 +12,14 @@ model:
 models:
   User: 
     model: github.com/kotaMiya/meetup/models.User
+    fields:
+      meetups:
+        resolver: true
   Meetup:
     model: github.com/kotaMiya/meetup/models.Meetup
+    fields:
+      user:
+        resolver: true
 resolver:
   filename: resolver.go
   type: Resolver

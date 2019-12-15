@@ -18,9 +18,11 @@ func main() {
 		port = defaultPort
 	}
 
-	http.Handle("/", handler.Playground("GraphQL playground", "/query"))
-	http.Handle("/query", handler.GraphQL(meetup.NewExecutableSchema(meetup.Config{Resolvers: &meetup.Resolver{}})))
+	conf := meetup.Config{Resolvers: &meetup.Resolver{}}
 
-	log.Printf("connect to http://localhost:#{port}/ for GraphQL playground")
+	http.Handle("/", handler.Playground("GraphQL playground", "/query"))
+	http.Handle("/query", handler.GraphQL(meetup.NewExecutableSchema(conf)))
+
+	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":" + port, nil))
 }
